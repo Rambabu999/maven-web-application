@@ -1,0 +1,14 @@
+node{
+//Building
+stage{('Bilid')
+echo 'Building the project' 
+}
+//Testing
+stage{('Test')
+echo 'Testing the project' 
+}
+//Deploying
+stage{('Deploy')
+echo 'Deploying the project' 
+}
+}

@@ -1,14 +1,21 @@
-node{
-//Building
-stage{('Bilid')
-echo 'Building the project' 
+node {
+def mavenhome= tool name: 'maven3.8.4'
+//getting the source code
+stage {('CheckoutCode')
+git branch: 'development', credentialsId: 'f872fa59-9387-4d4d-9684-04942fcf985d', url: 'https://github.com/Rambabu999/maven-web-application.git'
 }
-//Testing
-stage{('Test')
-echo 'Testing the project' 
+
+//Building
+stage {('Building')
+sh "${mavenhome}/bin/mvn clean package" 
+}
+//Sonarqube report
+/*stage {('Sonartest')
+sh 'echo Testing the project' 
 }
 //Deploying
-stage{('Deploy')
-echo 'Deploying the project' 
+stage {('Deploy')
+sh 'echo Deploying the project' 
 }
+*/
 }

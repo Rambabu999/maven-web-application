@@ -1,21 +1,23 @@
 node {
-def mavenhome= tool name: 'maven3.8.4'
+def mavenhome= tool name: 'maven-3.8.4'
 //getting the source code
-stage {('CheckoutCode')
+stage ('CheckoutCode'){
 git branch: 'development', credentialsId: 'f872fa59-9387-4d4d-9684-04942fcf985d', url: 'https://github.com/Rambabu999/maven-web-application.git'
 }
 
 //Building
-stage {('Building')
+stage ('Building'){
 sh "${mavenhome}/bin/mvn clean package" 
 }
 //Sonarqube report
-/*stage {('Sonartest')
-sh 'echo Testing the project' 
+/*stage ('Sonartest'){
+sh "${mavenhome}/bin/mvn sonar:sonar"  
 }
-//Deploying
-stage {('Deploy')
-sh 'echo Deploying the project' 
+//uploading artifats into repo
+stage ('Deploy'){
+sh "${mavenhome}/bin/mvn deploy"   
 }
-*/
+stage('installing into the server'){
+sh "scp ssh -o target/maven-web-application.war ec2-user@ip address location"
+}
 }
